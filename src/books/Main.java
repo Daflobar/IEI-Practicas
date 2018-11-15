@@ -12,12 +12,17 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("books.fxml"));
         primaryStage.setTitle("Búsqueda de libros");
-        primaryStage.setScene(new Scene(root, 400, 300));
+        primaryStage.setScene(new Scene(root, 900, 600));
+        primaryStage.setMinHeight(600);
+        primaryStage.setMinWidth(900);
         primaryStage.show();
     }
 
 
     public static void main(String[] args) {
         launch(args);
+        BookScrapper scrapper = new BookScrapper();
+
+
     }
 }
