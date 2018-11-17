@@ -77,13 +77,17 @@ public class FnacScrapper {
                 try {
                     previousPrice = book.findElement(By.className("oldPrice")).getText();
                 } catch (Exception e) {
-                    previousPrice = null;
+                    previousPrice = "X";
                 }
-                booksList.add(new Book(title, author, price, previousPrice));
+                if (!previousPrice.equals("X")) {
+                    String aux = previousPrice;
+                    previousPrice = price;
+                    price = aux;
+                }
+                booksList.add(new Book(title, author, price, previousPrice, "Fnac"));
             } catch (Exception ignored) {
             }
         }
-
         return booksList;
     }
 
@@ -97,6 +101,8 @@ public class FnacScrapper {
     }
 
     private void fnacChangePage() {
+        try {
         driver.findElements(By.className("nextLevel1")).get(0).click();
+        } catch (Exception e) {}
     }
 }

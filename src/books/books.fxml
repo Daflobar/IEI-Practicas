@@ -41,14 +41,6 @@
                     GridPane.columnIndex="1" GridPane.rowIndex="5"
                     visible="false">
         </Button>
-
-        <Label fx:id="alert" text="Rellene al menos uno de los campos"
-              textFill="red" visible="false"
-               GridPane.hgrow="ALWAYS"
-                GridPane.columnIndex="0"
-                GridPane.rowIndex="6"/>
-
-
     </GridPane>
 
     <TableView fx:id="tableView"
@@ -56,6 +48,11 @@
                HBox.hgrow="ALWAYS"
                visible="false">
         <columns>
+            <TableColumn text="Lugar de búsqueda">
+                <cellValueFactory>
+                    <PropertyValueFactory property="searchSite" />
+                </cellValueFactory>
+            </TableColumn>
             <TableColumn text="Título">
                 <cellValueFactory>
                     <PropertyValueFactory property="title" />

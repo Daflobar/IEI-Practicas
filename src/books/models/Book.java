@@ -5,12 +5,14 @@ public class Book {
     private String price;
     private String author;
     private String previousPrice;
+    private String searchSite;
 
-    public Book(String title, String author, String price, String previousPrice) {
+    public Book(String title, String author, String price, String previousPrice, String searchSite) {
         this.title = title;
         this.author = author;
         this.price = price;
         this.previousPrice = previousPrice;
+        this.searchSite = searchSite;
     }
 
     public String getTitle() {
@@ -44,4 +46,8 @@ public class Book {
     public void setPreviousPrice(String previousPrice) {
         this.previousPrice = previousPrice;
     }
+
+    public String getSearchSite() { return  searchSite; }
+
+    public void setSearchSite(String searchSite) { this.searchSite = searchSite; }
 }

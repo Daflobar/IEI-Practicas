@@ -49,7 +49,6 @@ public class AmazonScrapper {
             amazonChangePage();
             booksList.addAll(getBooksFromPageAmazon());
         }
-
         return booksList;
     }
 
@@ -62,7 +61,12 @@ public class AmazonScrapper {
                 String title = book.findElement(By.xpath("//h2")).getText();
                 String author = book.findElement(By.xpath("//span/a[@class='a-link-normal a-text-normal' and 1]")).getText();
                 String price = book.findElement(By.xpath("//span[@class='a-size-base a-color-price s-price a-text-bold' and 2]")).getText();
-                booksList.add(new Book(title, author, price, null));
+                if (title.equals("")) title = "X";
+                if (author.equals("")) author = "X";
+                if (price.equals("")) price = "X";
+
+
+                booksList.add(new Book(title, author, price, "X", "Amazon"));
             } catch (Exception ignored) {
             }
 
@@ -73,14 +77,24 @@ public class AmazonScrapper {
 
     private boolean amazonHasNextPage() {
         try {
+            //Si lo encuentra no tiene siguiente página
             driver.findElement(By.className("pagnRA1"));
-            return true;
-        } catch (Exception e) {
             return false;
+        } catch (Exception e) {
+            String results = driver.findElement(By.id("s-result-count")).getText().split(":")[0];
+            if (results.contains("de")) {
+                //Si contiene 'de' tiene página siguiente
+                return true;
+            } else {
+                //Si no contiene 'de no tiene página siguiente y es solo una pagina");
+                return false;
+            }
         }
     }
 
     private void amazonChangePage() {
-        driver.findElement(By.id("pagnNextString")).click();
+        try{
+            driver.findElement(By.cssSelector("span[class='srSprite pagnNextArrow']")).click();
+        } catch (Exception e) {}
     }
 }
