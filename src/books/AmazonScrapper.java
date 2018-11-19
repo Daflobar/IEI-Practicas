@@ -49,6 +49,8 @@ public class AmazonScrapper {
             amazonChangePage();
             booksList.addAll(getBooksFromPageAmazon());
         }
+
+        if (driver != null) driver.close();
         return booksList;
     }
 
@@ -77,24 +79,20 @@ public class AmazonScrapper {
 
     private boolean amazonHasNextPage() {
         try {
-            //Si lo encuentra no tiene siguiente página
+            // Si lo encuentra no tiene siguiente página
             driver.findElement(By.className("pagnRA1"));
             return false;
         } catch (Exception e) {
             String results = driver.findElement(By.id("s-result-count")).getText().split(":")[0];
-            if (results.contains("de")) {
-                //Si contiene 'de' tiene página siguiente
-                return true;
-            } else {
-                //Si no contiene 'de no tiene página siguiente y es solo una pagina");
-                return false;
-            }
+            // Si contiene 'de' tiene página siguiente en el caso contrario, es solo una página
+            return results.contains("de");
         }
     }
 
     private void amazonChangePage() {
-        try{
+        try {
             driver.findElement(By.cssSelector("span[class='srSprite pagnNextArrow']")).click();
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
     }
 }

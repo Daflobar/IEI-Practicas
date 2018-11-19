@@ -31,7 +31,7 @@ public class FnacScrapper {
         if (searchTitle == null) {
             searchTitle = "";
         }
-        if (searchAuthor== null) {
+        if (searchAuthor == null) {
             searchAuthor = "";
         }
 
@@ -55,10 +55,12 @@ public class FnacScrapper {
 
         List<Book> booksList = new ArrayList<>(getBooksFromPageFnac());
 
-        while(fnacHasNextPage()) {
+        while (fnacHasNextPage()) {
             fnacChangePage();
             booksList.addAll(getBooksFromPageFnac());
         }
+
+        if (driver != null) driver.close();
 
         return booksList;
     }
@@ -102,7 +104,8 @@ public class FnacScrapper {
 
     private void fnacChangePage() {
         try {
-        driver.findElements(By.className("nextLevel1")).get(0).click();
-        } catch (Exception e) {}
+            driver.findElements(By.className("nextLevel1")).get(0).click();
+        } catch (Exception e) {
+        }
     }
 }
